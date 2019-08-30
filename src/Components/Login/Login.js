@@ -53,7 +53,7 @@ export class Login extends Component {
                                 search: '?query=dashboard',
                                 //state:{data: response.data}
                             })
-                        } else if(response.data.role=="reg"|| response.data.role=="REG  "){
+                        } else if(response.data.role=="reg"|| response.data.role=="REG"){
                             this.props.history.push({
                                 pathname: '/regdashboard',
                                 search: '?query=dashboard',

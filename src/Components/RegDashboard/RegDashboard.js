@@ -88,17 +88,17 @@ export class RegDashboard extends Component {
             // ],
             availableSlots:[],
             selectedColor: "green",
-            bookedSlotId:'',
+            bookedSlot:'',
             bookedSlotName:'',
             slotSelected: false
         }
         this.handleClickPark=this.handleClickPark.bind(this)
         this.handleBook = this.handleBook.bind(this);
     }
-    handleClickPark(e){
-        console.log(`Id: ${e.target.id}  Value: ${e.target.value}`)
+    handleClickPark(e, value){
+        console.log("slotid", value)
         this.setState({
-            bookedSlot: e.target.value,
+            bookedSlot: value,
             bookedSlotName: e.target.id,
             slotSelected: true
         })
@@ -122,11 +122,13 @@ export class RegDashboard extends Component {
     handleBook(e){
         let book={
             userId:localStorage.getItem('userId'),
-            slotId: this.state.bookedSlotId
+            slotId: this.state.bookedSlot
         }
+        console.log("Book object", book)
         axios.post(`${config.url}/book`, book)
             .then(res => {
                 console.log("res inside component did mount get all day data", res)
+                swal('Booking successful')
                 this.setState({
                     slotId: res.data.slotId,
                     slotName: res.data.slotName
@@ -141,14 +143,15 @@ export class RegDashboard extends Component {
     render() {
         let slotList = this.state.availableSlots.map((item, i) => {
             if(item.slotName.indexOf('A')!==-1){
-                console.log("A")
+                console.log("item", item)
                 return (
                
                     <li className="row row--1">
-                        <ol className="parks" style={{fontWeight: "bold"}} type="A">
-                           
-                                <div  id={item.slotName} onClick={this.handleClickPark} >{item.slotName}</div>
-                           
+                        <ol className="parks" type="A">
+                            <li className="park">
+                                <input type="checkbox"  id={item.slotName} onClick={(e)=>{this.handleClickPark(e,item.slotId)}} />
+                                <label htmlFor={item.slotName}>{item.slotName}</label>
+                            </li>
                         </ol>
                     </li>
                 )
@@ -160,6 +163,7 @@ export class RegDashboard extends Component {
                
                     <li className="row row--2">
                         <ol className="parks" type="A">
+            
                             <li className="park">
                                 <input type="checkbox" id={item.slotName} value={item.slotId} onClick={this.handleClickPark}/>
                                 <label htmlFor={item.slotName}>{item.slotName}</label>
