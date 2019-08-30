@@ -31,6 +31,7 @@ export class Login extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
+        
         this.validate().then((res) => {
             console.log("res", res)
             if (res) {
@@ -46,13 +47,13 @@ export class Login extends Component {
                         // this.props.validateUser(true);
                         localStorage.setItem("userId",response.data.userId)
 
-                        if(response.data.role=="VIP"){
+                        if(response.data.role=="vip" || response.data.role=="VIP"){
                             this.props.history.push({
                                 pathname: '/vipdashboard',
                                 search: '?query=dashboard',
                                 //state:{data: response.data}
                             })
-                        } else {
+                        } else if(response.data.role=="reg"|| response.data.role=="REG  "){
                             this.props.history.push({
                                 pathname: '/regdashboard',
                                 search: '?query=dashboard',
@@ -115,7 +116,7 @@ export class Login extends Component {
     render() {
        let {t} = this.props
         return (
-            <div>
+            <div className="back">
                 <div className="container">
                      <h2 style={{marginLeft: "-5%", marginTop: "1%",color: "orangered"}}>Login</h2>
                 <form style={{marginLeft: '30%', marginTop: "5%", textAlign: "left"}} >
@@ -138,12 +139,12 @@ export class Login extends Component {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-4 offset-sm-2">
-                            <button type="submit" className="btn btn-primary" style={{backgroundColor:"orangered"}} onClick={this.handleSubmit}>Login</button>
+                            <button type="submit" className="btn btn-primary"  onClick={this.handleSubmit}>Login</button>
                         </div>
                     </div>
                 
                 </form>
-                {this.state.alert}
+               
             </div>
             </div>
         )

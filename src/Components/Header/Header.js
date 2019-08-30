@@ -15,15 +15,15 @@ class Header extends Component {
         return (
             <div>
                 <div style={{ backgroundColor: 'orangered', color: '#fff' }}>
-                    <img src={Logo} alt='not found' width="150px" height="100px" onClick={() => this.props.redirect('/', this.props.history)}></img>
-                        <span className='' style={{ color: '#fff', fontSize: '30px', margin: '30%',fontStyle: 'italic' }}>HCL Parking System</span>
+                    <img src={Logo} alt='not found' width="150px" height="100px" onClick={() => this.props.redirect('/login', this.props.history)}></img>
+                        <span className='' style={{ color: '#fff', fontSize: '30px', margin: '30%',fontStyle: 'italic' }}>HCL Smart Parking</span>
                     {/* {
                         this.props.isLoggedIn ?
                             <span ><button className="bt" onClick={() => this.props.redirect('/logout', this.props.history)} data-toggle="tooltip" title="Logout" >Logout</button></span> :
                             <span><button className="bt" onClick={() => this.props.redirect('/login', this.props.history)} data-toggle="tooltip" title="Login" >Login</button></span>
                     } */}
 
-                    {/* <span><Link to="/register" data-toggle="tooltip" title="Register" className="link2">Create Account</Link></span> */}
+                    <span><Link to="/register" data-toggle="tooltip" title="Register" style={{color: "white", textDecoration: "underline"}} className="link2">Register</Link></span>
                     
                     {/* <span><select className="drp" onChange={this.selectedLang}>
                         <option value="en">English</option>

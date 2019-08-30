@@ -1,0 +1,17 @@
+.container{
+    margin-top:5%;
+}
+
+ul{
+    width: 70%;
+}
+
+ li {
+    display:inline-block;
+    width: 10%;
+    height: 70px;
+    margin: 10px;
+    background: url('../../Assets/Images/greenparking.jfif') no-repeat;
+    background-size: auto 100%;
+    cursor: pointer
+}

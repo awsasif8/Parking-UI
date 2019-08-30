@@ -140,14 +140,14 @@ export class Register extends Component {
                            <br></br>
                            <label htmlFor="exp" className="col-sm-2 col-form-label labelal">Total Experience </label>
                            <div className="col-sm-4 " >
-                               <input onChange={this.handleChange} type="text" className="form-control" id="exp" placeholder="Enter SAP Id" />    
+                               <input onChange={this.handleChange} type="text" className="form-control" id="exp" placeholder="Enter total experience" />    
                            </div>
                        </div>
                        <div className="form-group row">
                            <br></br>
                            <label htmlFor="hclExp" className="col-sm-2 col-form-label labelal">HCL Experience</label>
                            <div className="col-sm-4 " >
-                           <input  onChange={this.handleChange} type="text" className="form-control" id="hclExp" placeholder="Enter SAP Id" />
+                           <input  onChange={this.handleChange} type="text" className="form-control" id="hclExp" placeholder="Enter HCL experience" />
                            </div>
                        </div>
                     <div className="form-group row">
@@ -159,7 +159,7 @@ export class Register extends Component {
                    
                     <div className="form-group row">
                         <div className="col-sm-4 offset-sm-2">
-                            <button type="submit" className="btn btn-primary" style={{backgroundColor:"orangered", }} onClick={this.handleSubmit}>Register</button>
+                            <button type="submit" className="btn btn-primary"  onClick={this.handleSubmit}>Register</button>
                         </div>
                     </div>
 

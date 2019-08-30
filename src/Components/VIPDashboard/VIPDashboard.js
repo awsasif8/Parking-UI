@@ -24,6 +24,17 @@ export class VIPDashboard extends Component {
         });
         
     }
+    validate(){
+        
+        return new Promise((resolve, reject)=>{
+            let isValid=true;
+            if(this.state.fromDate=== '' || this.state.toDate===''){
+                isValid=false;
+        
+            }
+            return resolve(isValid)
+        })
+    }
     handleSubmit(e) {
         e.preventDefault()
                 const { fromDate, toDate } = this.state
@@ -34,17 +45,27 @@ export class VIPDashboard extends Component {
                     userId: userId,
                     slotId: this.state.slotId
                 };
-                this.getData(user).then((response) => {
-                    console.log("resonse of slot release", response)
-                    if(response.data.status==="SUCCESS"){
-                     swal("Request for slot release submitted successfully")
-                    } else if(response.status==="FAILURE" ){
-                        swal(`Error in slot release ${response.data.message}`)
-                    }
-                    
-                }).catch(err=>{
-                    swal(`Error in slot release..Slot is already released`)
+                this.validate().then(res=>{
+                    if(res){
+                        this.getData(user).then((response) => {
+                            console.log("resonse of slot release", response)
+                            if(response.data.status==="SUCCESS"){
+                             swal("Request for slot release submitted successfully")
+                            } else if(response.status==="FAILURE" ){
+                                swal(`Error in slot release ${response.data.message}`)
+                            }
+                            
+                        }).catch(err=>{
+                            swal(err.response.data.message)
+                        })
+
+                    }  else{
+                        swal(`Please select the dates for which you want to release slot`)
+                    } 
+
                 })
+            }
+                
                     // if (response.status === 200 && response.data.status === "SUCCESS") {
                     // //         this.props.history.push({
                     // //             pathname: '/vipdashboard',
@@ -60,7 +81,6 @@ export class VIPDashboard extends Component {
                     // //     }
                         
                     // // })
-                }
     getData(user) {
         return new Promise((resolve, reject) => {
             axios.post(`${config.url}/releaseslot`, user)
@@ -91,10 +111,12 @@ export class VIPDashboard extends Component {
             <div>
                 
                 <div className="row">
+                <button type="button" style={{ marginLeft: "90%" }} className="btn btn-primary" onClick={()=>{this.props.history.push('/logout')}}>Logout</button>&nbsp;
                     <div class="column">
+                    <h4 style={{color: "orangered"}}>Do you want to help an employee by releasing a slot?</h4>
                         <div className="details">
-                       
-                             <h4 style={{color: "orangered"}}>Welcome to HCL parking solution</h4>
+                        
+                             
                              <br></br>
                              <h6>  Your parking slot number: {this.state.slotId} </h6>
                             
