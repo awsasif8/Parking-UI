@@ -17,11 +17,11 @@ class Header extends Component {
                 <div style={{ backgroundColor: 'orangered', color: '#fff' }}>
                     <img src={Logo} alt='not found' width="150px" height="100px" onClick={() => this.props.redirect('/', this.props.history)}></img>
                         <span className='' style={{ color: '#fff', fontSize: '30px', margin: '30%',fontStyle: 'italic' }}>HCL Parking System</span>
-                    {
+                    {/* {
                         this.props.isLoggedIn ?
                             <span ><button className="bt" onClick={() => this.props.redirect('/logout', this.props.history)} data-toggle="tooltip" title="Logout" >Logout</button></span> :
                             <span><button className="bt" onClick={() => this.props.redirect('/login', this.props.history)} data-toggle="tooltip" title="Login" >Login</button></span>
-                    }
+                    } */}
 
                     {/* <span><Link to="/register" data-toggle="tooltip" title="Register" className="link2">Create Account</Link></span> */}
                     

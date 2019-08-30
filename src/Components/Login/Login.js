@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next';
 import './Login.css'
 import config from '../../config.json'
 import { withRouter } from 'react-router-dom';
+import swal from 'sweetalert'
 // import validate from '../../Utils/Validator'
 
 export class Login extends Component {
@@ -38,11 +39,14 @@ export class Login extends Component {
                     email: email,
                     password: password
                 };
+                
                 this.getData(user).then((response) => {
-                    if (response.status === 200 && response.data.status === "SUCCESS") {
-                        this.props.validateUser(true);
+                    console.log("response of login", response)
+                    if (response.status === 200 && response.data.status==="SUCCESS") {
+                        // this.props.validateUser(true);
                         localStorage.setItem("userId",response.data.userId)
-                        if(response.data.role=="vip"){
+
+                        if(response.data.role=="VIP"){
                             this.props.history.push({
                                 pathname: '/vipdashboard',
                                 search: '?query=dashboard',
@@ -56,6 +60,8 @@ export class Login extends Component {
                             })
                         }
                         
+                    } else {
+                        swal(`Error in login : ${response.data.message}`)
                     }
                 })
             }
@@ -64,7 +70,7 @@ export class Login extends Component {
 
     getData(user) {
         return new Promise((resolve, reject) => {
-            axios.post(`${config.url}/login`, user)
+            axios.post(`${config.urlDhana}/user/login`, user)
                 .then(res => {
                     resolve(res)
                 }).catch(err => {

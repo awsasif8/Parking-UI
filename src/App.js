@@ -37,7 +37,8 @@ class App extends Component {
              <Route path='/table' exact component={Table} />
              <Route path='/register' exact component={Register} />
              <Route path='/vipdashboard' exact component={VIPDashboard} />
-             <Route path='/login' component={()=><Login validateUser={this.validateUser}/>}  />
+             {/* <Route path='/login' component={()=><Login validateUser={this.validateUser} redir/>}  /> */}
+             <Route path='/login' exact component={Login} />
           </Switch>    
         </HashRouter>
       </div>

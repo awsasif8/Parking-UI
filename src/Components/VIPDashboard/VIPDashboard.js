@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import config from '../../config.json'
 import axios from 'axios'
 import './VIPDashboard.css'
+import swal from 'sweetalert'
 export class VIPDashboard extends Component {
     constructor(props){
         super(props)
         this.state={
-            slotId:'100',
+            slotId:3,
             slotName:'VIP',
             fromDate: '',
             toDate:'',
@@ -26,37 +27,43 @@ export class VIPDashboard extends Component {
     handleSubmit(e) {
         e.preventDefault()
                 const { fromDate, toDate } = this.state
-                
+                let userId=localStorage.getItem('userId')
                 const user = {
-                    email: fromDate,
-                    password: toDate
+                    fromDate: fromDate,
+                    toDate: toDate,
+                    userId: userId,
+                    slotId: this.state.slotId
                 };
                 this.getData(user).then((response) => {
-                    if (response.status === 200 && response.data.status === "SUCCESS") {
-                        this.props.validateUser(true);
-                        localStorage.setItem("userId",response.data.userId)
-                        if(response.data.role=="vip"){
-                            this.props.history.push({
-                                pathname: '/vipdashboard',
-                                search: '?query=dashboard',
-                                //state:{data: response.data}
-                            })
-                        } else {
-                            this.props.history.push({
-                                pathname: '/regdashboard',
-                                search: '?query=dashboard',
-                                //state:{data: response.data}
-                            })
-                        }
-                        
+                    console.log("resonse of slot release", response)
+                    if(response.data.status==="SUCCESS"){
+                     swal("Request for slot release submitted successfully")
+                    } else if(response.status==="FAILURE" ){
+                        swal(`Error in slot release ${response.data.message}`)
                     }
+                    
+                }).catch(err=>{
+                    swal(`Error in slot release..Slot is already released`)
                 })
-       
-    }
-
+                    // if (response.status === 200 && response.data.status === "SUCCESS") {
+                    // //         this.props.history.push({
+                    // //             pathname: '/vipdashboard',
+                    // //             search: '?query=dashboard',
+                    // //             //state:{data: response.data}
+                    // //         })
+                    // //     } else {
+                    // //         this.props.history.push({
+                    // //             pathname: '/regdashboard',
+                    // //             search: '?query=dashboard',
+                    // //             //state:{data: response.data}
+                    // //         })
+                    // //     }
+                        
+                    // // })
+                }
     getData(user) {
         return new Promise((resolve, reject) => {
-            axios.post(`${config.url}/login`, user)
+            axios.post(`${config.urlPradeep}/releaseslot`, user)
                 .then(res => {
                     resolve(res)
                 }).catch(err => {
@@ -68,7 +75,7 @@ export class VIPDashboard extends Component {
     componentDidMount(){
         console.log(localStorage.getItem('userId'))
         let userId= localStorage.getItem('userId')
-        axios.get(`${config.url}/userslot/${userId}`)
+        axios.get(`${config.urlPradeep}/userslot/${userId}`)
             .then(res => {
                 console.log("res inside component did mount get all day data", res)
                 this.setState({
@@ -82,9 +89,11 @@ export class VIPDashboard extends Component {
     render() {
         return (
             <div>
+                
                 <div className="row">
                     <div class="column">
                         <div className="details">
+                       
                              <h4 style={{color: "orangered"}}>Welcome to HCL parking solution</h4>
                              <br></br>
                              <h6>  Your parking slot number: {this.state.slotId} </h6>
@@ -92,9 +101,9 @@ export class VIPDashboard extends Component {
                              <br></br><br></br>
                              
                             
-                             Release parking lot From Date:  <input type="checkbox"  value="" id="fromdate" onChange={this.handleChange} />&nbsp;
+                              Release parking lot From Date:  <input type="date"  id="fromDate" onChange={this.handleChange} />&nbsp;
                              To Date: <input type="date"   id="toDate" onChange={this.handleChange}/><br></br><br></br>
-                            <button type="button" style={{ marginLeft: "1%" }} className="btn btn-primary" onClick={() => { this.props.history.push('/') }}>Submit</button>&nbsp;
+                            <button type="button" style={{ marginLeft: "1%" }} className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>&nbsp;
                               
                         </div>
                         
