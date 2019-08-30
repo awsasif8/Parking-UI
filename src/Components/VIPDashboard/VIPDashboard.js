@@ -28,8 +28,8 @@ export class VIPDashboard extends Component {
                 const { fromDate, toDate } = this.state
                 
                 const user = {
-                    email: email,
-                    password: password
+                    email: fromDate,
+                    password: toDate
                 };
                 this.getData(user).then((response) => {
                     if (response.status === 200 && response.data.status === "SUCCESS") {
@@ -51,8 +51,7 @@ export class VIPDashboard extends Component {
                         
                     }
                 })
-            }
-        });
+       
     }
 
     getData(user) {
