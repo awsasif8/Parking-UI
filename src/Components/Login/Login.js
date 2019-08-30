@@ -70,7 +70,7 @@ export class Login extends Component {
 
     getData(user) {
         return new Promise((resolve, reject) => {
-            axios.post(`${config.urlDhana}/user/login`, user)
+            axios.post(`${config.url}/user/login`, user)
                 .then(res => {
                     resolve(res)
                 }).catch(err => {

@@ -47,7 +47,7 @@ export class Register extends Component {
                 console.log(user)
                 this.setState({ loading: true }, () => {
                     console.log(this.state.loading)
-                    axios.post(`${config.urlCharan}/register`, user)
+                    axios.post(`${config.url}/register`, user)
                     .then(res => {
                             console.log("register response", res)
                         if (res.status === 200 && res.data.status==="SUCCESS") {

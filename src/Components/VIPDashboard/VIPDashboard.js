@@ -63,7 +63,7 @@ export class VIPDashboard extends Component {
                 }
     getData(user) {
         return new Promise((resolve, reject) => {
-            axios.post(`${config.urlPradeep}/releaseslot`, user)
+            axios.post(`${config.url}/releaseslot`, user)
                 .then(res => {
                     resolve(res)
                 }).catch(err => {
@@ -75,7 +75,7 @@ export class VIPDashboard extends Component {
     componentDidMount(){
         console.log(localStorage.getItem('userId'))
         let userId= localStorage.getItem('userId')
-        axios.get(`${config.urlPradeep}/userslot/${userId}`)
+        axios.get(`${config.url}/userslot/${userId}`)
             .then(res => {
                 console.log("res inside component did mount get all day data", res)
                 this.setState({
